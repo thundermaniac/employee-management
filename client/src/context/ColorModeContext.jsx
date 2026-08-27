@@ -1,0 +1,37 @@
+import { createContext, useContext, useMemo, useState } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { buildTheme } from '../theme';
+
+const MODE_KEY = 'ems_color_mode';
+const ColorModeContext = createContext({ mode: 'light', toggle: () => {} });
+
+export function ColorModeProvider({ children }) {
+  const [mode, setMode] = useState(() => localStorage.getItem(MODE_KEY) || 'light');
+
+  const value = useMemo(
+    () => ({
+      mode,
+      toggle: () =>
+        setMode((prev) => {
+          const next = prev === 'light' ? 'dark' : 'light';
+          localStorage.setItem(MODE_KEY, next);
+          return next;
+        }),
+    }),
+    [mode]
+  );
+
+  const theme = useMemo(() => buildTheme(mode), [mode]);
+
+  return (
+    <ColorModeContext.Provider value={value}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+}
+
+export const useColorMode = () => useContext(ColorModeContext);

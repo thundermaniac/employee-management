@@ -1,0 +1,17 @@
+{
+  "name": "employee-management",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MERN Employee Management Dashboard — JWT auth, employee CRUD, search/filter, analytics and pagination",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -n api,web -c magenta,cyan \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "seed": "npm run seed --prefix server",
+    "build": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
