@@ -6,8 +6,12 @@ const { validate } = require('../middleware/errorHandler');
 
 const router = express.Router();
 
+// Guarded: this app seeds its first admin, so account creation is an action an
+// existing signed-in admin performs — not something the public internet can do.
+// Without this an anonymous caller could mint an admin and read every employee.
 router.post(
   '/register',
+  protect,
   [
     body('name').trim().notEmpty().withMessage('Name is required'),
     body('email').isEmail().withMessage('Enter a valid email address').normalizeEmail(),

@@ -102,7 +102,7 @@ All `/api/employees` routes require an `Authorization: Bearer <token>` header.
 
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
-| `POST` | `/api/auth/register` | Create an account |
+| `POST` | `/api/auth/register` | Create an account — **requires an existing admin token** |
 | `POST` | `/api/auth/login` | Sign in, returns `{ token, user }` |
 | `GET` | `/api/auth/me` | Verify token, returns the current user |
 | `GET` | `/api/employees` | List — `search`, `department`, `status`, `page`, `limit`, `sortBy`, `order` |
